@@ -40,7 +40,7 @@ assign      led = led_reg;
 // ------------------------------------------------------------------------- 
 
 assign uart_tx_data = uart_rx_data;
-assign uart_tx_en   = uart_rx_valid;
+assign uart_tx_en   = uart_rx_valid | uart_tx_busy;
 
 always @(posedge clk) begin
     if(!sw_0) begin

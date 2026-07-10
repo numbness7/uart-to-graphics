@@ -39,7 +39,7 @@
 
 set_global_assignment -name FAMILY "Cyclone V"
 set_global_assignment -name DEVICE 5CSEMA5F31C6
-set_global_assignment -name TOP_LEVEL_ENTITY impl_top
+set_global_assignment -name TOP_LEVEL_ENTITY VGAInterface
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 23.1STD.1
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "12:34:21  JULY 08, 2026"
 set_global_assignment -name LAST_QUARTUS_VERSION "23.1std.1 Lite Edition"
@@ -73,17 +73,12 @@ set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_location_assignment PIN_AC18 -to uart_rxd
 set_location_assignment PIN_Y17 -to uart_txd
-set_location_assignment PIN_AF14 -to clk
-set_location_assignment PIN_AB12 -to sw_0
-set_location_assignment PIN_AC12 -to sw_1
-set_location_assignment PIN_W20 -to led[7]
-set_location_assignment PIN_Y19 -to led[6]
-set_location_assignment PIN_W19 -to led[5]
-set_location_assignment PIN_W17 -to led[4]
-set_location_assignment PIN_V18 -to led[3]
-set_location_assignment PIN_V17 -to led[2]
-set_location_assignment PIN_W16 -to led[1]
-set_location_assignment PIN_V16 -to led[0]
+set_global_assignment -name EDA_TEST_BENCH_NAME tb -section_id eda_simulation
+set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id tb
+set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME tb -section_id tb
+set_global_assignment -name EDA_TEST_BENCH_FILE test/tb.v -section_id tb
+set_global_assignment -name VERILOG_FILE test/VGAInterfaceTB.v
+set_global_assignment -name VERILOG_FILE rtl/VGAInterface.v
 set_global_assignment -name VERILOG_FILE test/tb.v
 set_global_assignment -name VERILOG_FILE test/tb_rx.v
 set_global_assignment -name VERILOG_FILE test/tb_tx.v
@@ -91,12 +86,44 @@ set_global_assignment -name VERILOG_FILE rtl/impl_top.v
 set_global_assignment -name VERILOG_FILE rtl/uart_rx.v
 set_global_assignment -name VERILOG_FILE rtl/uart_tx.v
 set_global_assignment -name VERILOG_FILE rtl/gpio_1bit.v
-set_global_assignment -name EDA_TEST_BENCH_NAME tb -section_id eda_simulation
-set_global_assignment -name EDA_DESIGN_INSTANCE_NAME NA -section_id tb
-set_global_assignment -name EDA_TEST_BENCH_MODULE_NAME tb -section_id tb
-set_global_assignment -name EDA_TEST_BENCH_FILE test/tb.v -section_id tb
-set_location_assignment PIN_Y21 -to led0
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_location_assignment PIN_AA16 -to clear
+set_location_assignment PIN_AE12 -to en
+set_location_assignment PIN_B11 -to hs
+set_location_assignment PIN_W21 -to hs_led
+set_location_assignment PIN_F10 -to vga_blank_n
+set_location_assignment PIN_J14 -to vga_blue[7]
+set_location_assignment PIN_G15 -to vga_blue[6]
+set_location_assignment PIN_F15 -to vga_blue[5]
+set_location_assignment PIN_H14 -to vga_blue[4]
+set_location_assignment PIN_F14 -to vga_blue[3]
+set_location_assignment PIN_H13 -to vga_blue[2]
+set_location_assignment PIN_G13 -to vga_blue[1]
+set_location_assignment PIN_B13 -to vga_blue[0]
+set_location_assignment PIN_A11 -to vga_clock
+set_location_assignment PIN_E11 -to vga_green[7]
+set_location_assignment PIN_F11 -to vga_green[6]
+set_location_assignment PIN_G12 -to vga_green[5]
+set_location_assignment PIN_G11 -to vga_green[4]
+set_location_assignment PIN_G10 -to vga_green[3]
+set_location_assignment PIN_H12 -to vga_green[2]
+set_location_assignment PIN_J10 -to vga_green[1]
+set_location_assignment PIN_J9 -to vga_green[0]
+set_location_assignment PIN_F13 -to vga_red[7]
+set_location_assignment PIN_E12 -to vga_red[6]
+set_location_assignment PIN_D12 -to vga_red[5]
+set_location_assignment PIN_C12 -to vga_red[4]
+set_location_assignment PIN_B12 -to vga_red[3]
+set_location_assignment PIN_E13 -to vga_red[2]
+set_location_assignment PIN_C13 -to vga_red[1]
+set_location_assignment PIN_A13 -to vga_red[0]
+set_location_assignment PIN_C10 -to vga_sync_n
+set_location_assignment PIN_D11 -to vs
+set_location_assignment PIN_V18 -to rgb[2]
+set_location_assignment PIN_AF14 -to clk_50mhz
+set_location_assignment PIN_W17 -to rgb[1]
+set_location_assignment PIN_W19 -to rgb[0]
+set_location_assignment PIN_Y21 -to vs_led
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

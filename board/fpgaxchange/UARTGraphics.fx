@@ -32,16 +32,42 @@
 
 Signal Name,Pin Number,Direction,IO Standard,Drive (mA),Termination,Slew Rate,Swap Group,Diff Type
 
-sw_1,AC12,input,2.5 V,,Off,--,swap_0,--
-uart_txd,Y17,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_1,--
-led[0],V16,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_1,--
-led[1],W16,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_1,--
-led[2],V17,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_1,--
-led[3],V18,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_1,--
-led[4],W17,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_1,--
-led[5],W19,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_1,--
-led[6],Y19,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_1,--
-led[7],W20,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_1,--
-clk,AF14,input,2.5 V,,Off,--,swap_0,--
-sw_0,AB12,input,2.5 V,,Off,--,swap_0,--
-uart_rxd,AC18,input,2.5 V,,Off,--,swap_0,--
+hs,B11,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+vs,D11,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+vga_red[0],A13,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+vga_red[1],C13,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+vga_red[2],E13,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+vga_red[3],B12,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+vga_red[4],C12,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+vga_red[5],D12,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+vga_red[6],E12,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+vga_red[7],F13,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+vga_green[0],J9,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+vga_green[1],J10,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+vga_green[2],H12,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+vga_green[3],G10,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+vga_green[4],G11,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+vga_green[5],G12,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+vga_green[6],F11,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+vga_green[7],E11,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+vga_blue[0],B13,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+vga_blue[1],G13,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+vga_blue[2],H13,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+vga_blue[3],F14,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+vga_blue[4],H14,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+vga_blue[5],F15,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+vga_blue[6],G15,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+vga_blue[7],J14,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+hs_led,W21,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+vs_led,Y21,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+rgb[0],W19,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+rgb[1],W17,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+rgb[2],V18,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+vga_clock,A11,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+vga_blank_n,F10,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+vga_sync_n,C10,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+uart_txd,Y17,output,2.5 V,Default,Series 50 Ohm without Calibration,FAST,swap_0,--
+clk_50mhz,AF14,input,2.5 V,,Off,--,swap_1,--
+clear,AA16,input,2.5 V,,Off,--,swap_1,--
+en,AE12,input,2.5 V,,Off,--,swap_1,--
+uart_rxd,AC18,input,2.5 V,,Off,--,swap_1,--
