@@ -23,7 +23,7 @@ reg  uart_rxd   ;   // UART Recieve pin.
 
 //
 // Bit rate of the UART line we are testing.
-localparam BIT_RATE = 11520;
+localparam BIT_RATE = 9600;
 localparam BIT_P    = (1000000000/BIT_RATE);
 
 //

@@ -105,7 +105,7 @@ end
 
 wire next_bit     = cycle_counter == CYCLES_PER_BIT ||
                         fsm_state       == FSM_STOP && 
-                        cycle_counter   == CYCLES_PER_BIT/2;
+                        cycle_counter   == CYCLES_PER_BIT>>2;
 wire payload_done = bit_counter   == PAYLOAD_BITS  ;
 
 //
@@ -146,7 +146,7 @@ always @(posedge clk) begin : p_bit_counter
     if(!resetn) begin
         bit_counter <= 4'b0;
     end else if(fsm_state != FSM_RECV) begin
-        bit_counter <= {COUNT_REG_LEN{1'b0}};
+        bit_counter <= 4'b0;
     end else if(fsm_state == FSM_RECV && next_bit) begin
         bit_counter <= bit_counter + 1'b1;
     end
@@ -157,7 +157,7 @@ end
 always @(posedge clk) begin : p_bit_sample
     if(!resetn) begin
         bit_sample <= 1'b0;
-    end else if (cycle_counter == CYCLES_PER_BIT/2) begin
+    end else if (cycle_counter == CYCLES_PER_BIT>>2) begin
         bit_sample <= rxd_reg;
     end
 end
@@ -173,7 +173,7 @@ always @(posedge clk) begin : p_cycle_counter
     end else if(fsm_state == FSM_START || 
                 fsm_state == FSM_RECV  || 
                 fsm_state == FSM_STOP   ) begin
-        cycle_counter <= cycle_counter + 1'b1;
+        cycle_counter <= cycle_counter + {{(COUNT_REG_LEN-1){1'b0}},{1'b1}};
     end
 end
 
