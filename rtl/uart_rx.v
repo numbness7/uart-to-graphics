@@ -94,9 +94,12 @@ assign uart_rx_valid = fsm_state == FSM_STOP && n_fsm_state == FSM_IDLE;
 always @(posedge clk) begin
     if(!resetn) begin
         uart_rx_data  <= {PAYLOAD_BITS{1'b0}};
-    end else if (fsm_state == FSM_STOP) begin
-        uart_rx_data  <= recieved_data;
-    end
+    end 
+	 else if(uart_rx_en) begin
+		 if (fsm_state == FSM_STOP) begin
+			  uart_rx_data  <= recieved_data;
+		 end
+	 end
 end
 
 // --------------------------------------------------------------------------- 
@@ -130,14 +133,17 @@ integer i = 0;
 always @(posedge clk) begin : p_recieved_data
     if(!resetn) begin
         recieved_data <= {PAYLOAD_BITS{1'b0}};
-    end else if(fsm_state == FSM_IDLE             ) begin
-        recieved_data <= {PAYLOAD_BITS{1'b0}};
-    end else if(fsm_state == FSM_RECV && next_bit ) begin
-        recieved_data[PAYLOAD_BITS-1] <= bit_sample;
-        for ( i = PAYLOAD_BITS-2; i >= 0; i = i - 1) begin
-            recieved_data[i] <= recieved_data[i+1];
-        end
-    end
+    end 
+	 else if(uart_rx_en) begin
+		 if(fsm_state == FSM_IDLE             ) begin
+			  recieved_data <= {PAYLOAD_BITS{1'b0}};
+		 end else if(fsm_state == FSM_RECV && next_bit ) begin
+			  recieved_data[PAYLOAD_BITS-1] <= bit_sample;
+			  for ( i = PAYLOAD_BITS-2; i >= 0; i = i - 1) begin
+					recieved_data[i] <= recieved_data[i+1];
+			  end
+		 end
+	 end
 end
 
 //
@@ -145,21 +151,27 @@ end
 always @(posedge clk) begin : p_bit_counter
     if(!resetn) begin
         bit_counter <= 4'b0;
-    end else if(fsm_state != FSM_RECV) begin
+	 end
+    else if(uart_rx_en) begin
+		 if(fsm_state != FSM_RECV) begin
         bit_counter <= 4'b0;
-    end else if(fsm_state == FSM_RECV && next_bit) begin
-        bit_counter <= bit_counter + 1'b1;
-    end
+		 end else if(fsm_state == FSM_RECV && next_bit) begin
+			  bit_counter <= bit_counter + 1'b1;
+		 end
+	 end
 end
 
 //
 // Sample the recieved bit when in the middle of a bit frame.
 always @(posedge clk) begin : p_bit_sample
     if(!resetn) begin
-        bit_sample <= 1'b0;
-    end else if (cycle_counter == CYCLES_PER_BIT>>2) begin
-        bit_sample <= rxd_reg;
-    end
+			bit_sample <= 1'b0;
+	 end
+	 else if(uart_rx_en) begin
+		 if(cycle_counter == CYCLES_PER_BIT>>2) begin
+			bit_sample <= rxd_reg;
+		 end
+	 end
 end
 
 
@@ -168,13 +180,14 @@ end
 always @(posedge clk) begin : p_cycle_counter
     if(!resetn) begin
         cycle_counter <= {COUNT_REG_LEN{1'b0}};
-    end else if(next_bit) begin
-        cycle_counter <= {COUNT_REG_LEN{1'b0}};
-    end else if(fsm_state == FSM_START || 
-                fsm_state == FSM_RECV  || 
-                fsm_state == FSM_STOP   ) begin
-        cycle_counter <= cycle_counter + {{(COUNT_REG_LEN-1){1'b0}},{1'b1}};
     end
+	 else if(uart_rx_en) begin
+		 if(next_bit) begin
+			  cycle_counter <= {COUNT_REG_LEN{1'b0}};
+		 end else if(fsm_state != FSM_IDLE) begin
+			  cycle_counter <= cycle_counter + {{(COUNT_REG_LEN-1){1'b0}},{1'b1}};
+		 end
+	 end
 end
 
 
@@ -183,7 +196,8 @@ end
 always @(posedge clk) begin : p_fsm_state
     if(!resetn) begin
         fsm_state <= FSM_IDLE;
-    end else begin
+    end
+	 else if(uart_rx_en) begin
         fsm_state <= n_fsm_state;
     end
 end
@@ -195,7 +209,8 @@ always @(posedge clk) begin : p_rxd_reg
     if(!resetn) begin
         rxd_reg     <= 1'b1;
         rxd_reg_0   <= 1'b1;
-    end else if(uart_rx_en) begin
+    end 
+	 else if(uart_rx_en) begin
         rxd_reg     <= rxd_reg_0;
         rxd_reg_0   <= uart_rxd;
     end

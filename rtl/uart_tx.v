@@ -74,6 +74,7 @@ reg [3:0] bit_counter;
 reg [2:0] fsm_state;
 reg [2:0] n_fsm_state;
 
+
 localparam FSM_IDLE = 0;
 localparam FSM_START= 1;
 localparam FSM_SEND = 2;
@@ -113,13 +114,16 @@ integer i = 0;
 always @(posedge clk) begin : p_data_to_send
     if(!resetn) begin
         data_to_send <= {PAYLOAD_BITS{1'b0}};
-    end else if(fsm_state == FSM_IDLE && uart_tx_en) begin
-        data_to_send <= uart_tx_data;
-    end else if(fsm_state       == FSM_SEND       && next_bit ) begin
-        for ( i = PAYLOAD_BITS-2; i >= 0; i = i - 1) begin
-            data_to_send[i] <= data_to_send[i+1];
-        end
-    end
+	 end
+	 else if (uart_tx_en) begin 
+		if(fsm_state == FSM_IDLE && uart_tx_en) begin	     
+			  data_to_send <= uart_tx_data;
+		 end else if(fsm_state       == FSM_SEND       && next_bit ) begin
+			  for ( i = PAYLOAD_BITS-2; i >= 0; i = i - 1) begin
+					data_to_send[i] <= data_to_send[i+1];
+			  end
+		 end
+	 end
 end
 
 
@@ -128,15 +132,18 @@ end
 always @(posedge clk) begin : p_bit_counter
     if(!resetn) begin
         bit_counter <= 4'b0;
-    end else if(fsm_state != FSM_SEND && fsm_state != FSM_STOP) begin
-        bit_counter <= {COUNT_REG_LEN{1'b0}};
-    end else if(fsm_state == FSM_SEND && n_fsm_state == FSM_STOP) begin
-        bit_counter <= {COUNT_REG_LEN{1'b0}};
-    end else if(fsm_state == FSM_STOP&& next_bit) begin
-        bit_counter <= bit_counter + 1'b1;
-    end else if(fsm_state == FSM_SEND && next_bit) begin
-        bit_counter <= bit_counter + 1'b1;
-    end
+    end 
+	 else if (uart_tx_en) begin
+		 if(fsm_state != FSM_SEND && fsm_state != FSM_STOP) begin
+			  bit_counter <= {COUNT_REG_LEN{1'b0}};
+		 end else if(fsm_state == FSM_SEND && n_fsm_state == FSM_STOP) begin
+			  bit_counter <= {COUNT_REG_LEN{1'b0}};
+		 end else if(fsm_state == FSM_STOP&& next_bit) begin
+			  bit_counter <= bit_counter + 1'b1;
+		 end else if(fsm_state == FSM_SEND && next_bit) begin
+			  bit_counter <= bit_counter + 1'b1;
+		 end
+	 end
 end
 
 
@@ -145,13 +152,14 @@ end
 always @(posedge clk) begin : p_cycle_counter
     if(!resetn) begin
         cycle_counter <= {COUNT_REG_LEN{1'b0}};
-    end else if(next_bit) begin
-        cycle_counter <= {COUNT_REG_LEN{1'b0}};
-    end else if(fsm_state == FSM_START || 
-                fsm_state == FSM_SEND  || 
-                fsm_state == FSM_STOP   ) begin
-        cycle_counter <= cycle_counter + 1'b1;
-    end
+    end 
+	 else if (uart_tx_en) begin
+		 if(next_bit) begin
+			  cycle_counter <= {COUNT_REG_LEN{1'b0}};
+		 end else if(fsm_state != FSM_IDLE) begin
+			  cycle_counter <= cycle_counter + {{(COUNT_REG_LEN-1){1'b0}},{1'b1}};
+		 end
+	end
 end
 
 
@@ -160,9 +168,10 @@ end
 always @(posedge clk) begin : p_fsm_state
     if(!resetn) begin
         fsm_state <= FSM_IDLE;
-    end else begin
-        fsm_state <= n_fsm_state;
     end
+	 else if(uart_tx_en) begin 
+		  fsm_state <= n_fsm_state;
+	end
 end
 
 
@@ -171,15 +180,18 @@ end
 always @(posedge clk) begin : p_txd_reg
     if(!resetn) begin
         txd_reg <= 1'b1;
-    end else if(fsm_state == FSM_IDLE) begin
-        txd_reg <= 1'b1;
-    end else if(fsm_state == FSM_START) begin
-        txd_reg <= 1'b0;
-    end else if(fsm_state == FSM_SEND) begin
-        txd_reg <= data_to_send[0];
-    end else if(fsm_state == FSM_STOP) begin
-        txd_reg <= 1'b1;
-    end
+	 end
+	 else if(uart_tx_en) begin
+		 if(fsm_state == FSM_IDLE) begin
+			  txd_reg <= 1'b1;
+		 end else if(fsm_state == FSM_START) begin
+			  txd_reg <= 1'b0;
+		 end else if(fsm_state == FSM_SEND) begin
+			  txd_reg <= data_to_send[0];
+		 end else if(fsm_state == FSM_STOP) begin
+			  txd_reg <= 1'b1;
+		 end
+	 end
 end
 
 endmodule
