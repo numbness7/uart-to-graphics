@@ -6,7 +6,7 @@
 // - UART reciever module.
 //
 
-module uart_rx(
+module uart_rx #(parameter PAYLOAD_BITS=8, parameter BIT_RATE = 9600, parameter CLK_HZ = 50_000_000) (
 input  wire       clk          , // Top level system clock input.
 input  wire       resetn       , // Asynchronous active low reset.
 input  wire       uart_rxd     , // UART Recieve pin.
@@ -22,17 +22,15 @@ output reg  [PAYLOAD_BITS-1:0] uart_rx_data   // The recieved data.
 
 //
 // Input bit rate of the UART line.
-parameter   BIT_RATE        = 9600; // bits / sec
 localparam  BIT_P           = 1_000_000_000 * 1/BIT_RATE; // nanoseconds
 
 //
 // Clock frequency in hertz.
-parameter   CLK_HZ          =    50_000_000;
 localparam  CLK_P           = 1_000_000_000 * 1/CLK_HZ; // nanoseconds
 
 //
 // Number of data bits recieved per UART packet.
-parameter   PAYLOAD_BITS    = 8;
+
 
 //
 // Number of stop bits indicating the end of a packet.

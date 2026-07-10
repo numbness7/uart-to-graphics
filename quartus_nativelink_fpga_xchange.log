@@ -1,0 +1,17 @@
+Info: Read atom netlist
+Info: Directory /home/school/Projects/uart-to-graphics/board/fpgaxchange exists --if you continue the contents of the directory may be overwritten
+Info: Generating FPGA Xchange file /home/school/Projects/uart-to-graphics/board/fpgaxchange/UARTGraphics.fx
+Info: Atom 189 (sw_1) has key 'input,2.5 V,--,--,Off,--,0,--,0,--,--'
+Info: Atom 191 (uart_txd) has key 'output,2.5 V,Default,Series 50 Ohm without Calibration,--,FAST,0,--,0,--,--'
+Info: Atom 193 (led[0]) has key 'output,2.5 V,Default,Series 50 Ohm without Calibration,--,FAST,0,--,0,--,--'
+Info: Atom 195 (led[1]) has key 'output,2.5 V,Default,Series 50 Ohm without Calibration,--,FAST,0,--,0,--,--'
+Info: Atom 197 (led[2]) has key 'output,2.5 V,Default,Series 50 Ohm without Calibration,--,FAST,0,--,0,--,--'
+Info: Atom 199 (led[3]) has key 'output,2.5 V,Default,Series 50 Ohm without Calibration,--,FAST,0,--,0,--,--'
+Info: Atom 201 (led[4]) has key 'output,2.5 V,Default,Series 50 Ohm without Calibration,--,FAST,0,--,0,--,--'
+Info: Atom 203 (led[5]) has key 'output,2.5 V,Default,Series 50 Ohm without Calibration,--,FAST,0,--,0,--,--'
+Info: Atom 205 (led[6]) has key 'output,2.5 V,Default,Series 50 Ohm without Calibration,--,FAST,0,--,0,--,--'
+Info: Atom 207 (led[7]) has key 'output,2.5 V,Default,Series 50 Ohm without Calibration,--,FAST,0,--,0,--,--'
+Info: Atom 209 (clk) has key 'input,2.5 V,--,--,Off,--,0,--,0,--,--'
+Info: Atom 211 (sw_0) has key 'input,2.5 V,--,--,Off,--,0,--,0,--,--'
+Info: Atom 213 (uart_rxd) has key 'input,2.5 V,--,--,Off,--,0,--,0,--,--'
+Info: FPGA Xchange file /home/school/Projects/uart-to-graphics/board/fpgaxchange/UARTGraphics.fx generated successfully

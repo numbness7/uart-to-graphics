@@ -10,7 +10,7 @@
 `timescale 1ns/1ns
 `define WAVES_FILE "./work/waves-rx.vcd"
 
-module tb;
+module tb_rx;
     
 reg        clk          ; // Top level system clock input.
 reg        resetn       ;
